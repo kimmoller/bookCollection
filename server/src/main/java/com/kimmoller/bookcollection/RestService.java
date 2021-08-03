@@ -1,9 +1,17 @@
 package com.kimmoller.bookcollection;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +20,8 @@ public class RestService {
 
     @Autowired
     private BookCollection bookCollection;
+    @Autowired
+    private ObjectMapper mapper;
 
     @GetMapping("/getBook")
     public Book getBook(@RequestParam(value = "id", defaultValue = "0") int id) {
@@ -20,6 +30,18 @@ public class RestService {
 
     @GetMapping("/getAll")
     public List<Book> getAll() {
+        return bookCollection.getBookCollection();
+    }
+
+    @PostMapping(path = "/addBook", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Book> addBookToCollection(@RequestBody String payload) {
+        Book book;
+        try {
+            book = mapper.readValue(payload, Book.class);
+            bookCollection.addBookToCollection(book);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return bookCollection.getBookCollection();
     }
 }
