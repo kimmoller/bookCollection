@@ -30,7 +30,7 @@ public class BookCollection {
     }
 
     public void addBookToCollection(Book book) {
-        int newId = this.bookCollection.get(-1).getId() + 1;
+        int newId = this.bookCollection.get(this.bookCollection.size() - 1).getId() + 1;
         book.setId(newId);
         this.bookCollection.add(book);
     }
