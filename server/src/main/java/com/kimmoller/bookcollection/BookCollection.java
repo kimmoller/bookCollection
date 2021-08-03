@@ -1,6 +1,7 @@
 package com.kimmoller.bookcollection;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.google.common.collect.Lists;
 
@@ -33,5 +34,14 @@ public class BookCollection {
         int newId = this.bookCollection.get(this.bookCollection.size() - 1).getId() + 1;
         book.setId(newId);
         this.bookCollection.add(book);
+    }
+
+    public void deleteFromCollection(Book book) {
+        Optional<Book> bookToDelete = this.bookCollection.stream().filter(element -> {
+            return book.getId() == (element.getId());
+        }).findFirst();
+        if (bookToDelete.isPresent()) {
+            this.bookCollection.remove(bookToDelete.get());
+        }
     }
 }
