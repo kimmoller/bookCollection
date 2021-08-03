@@ -44,4 +44,15 @@ public class BookCollection {
             this.bookCollection.remove(bookToDelete.get());
         }
     }
+
+    public void updateBook(Book book) {
+        Optional<Book> bookToUpdate = this.bookCollection.stream().filter(element -> {
+            return book.getId() == (element.getId());
+        }).findFirst();
+        if (bookToUpdate.isPresent()) {
+            int index = this.bookCollection.indexOf(bookToUpdate.get());
+            this.bookCollection.set(index, book);
+        }
+    }
+
 }
