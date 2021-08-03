@@ -1,17 +1,17 @@
 package com.kimmoller.bookcollection;
 
-import java.util.Map;
+import java.util.List;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class BookCollection {
-    private Map<Integer, Book> bookCollection;
+    private List<Book> bookCollection;
 
     public BookCollection() {
-        this.bookCollection = Maps.newHashMap();
+        this.bookCollection = Lists.newArrayList();
     }
 
     public void initCollection() {
@@ -20,17 +20,18 @@ public class BookCollection {
                 "Second book in the Harry Potter series");
         Book gameOfThrones = new Book(2, "Game of Thrones", "J. R. R. Martin",
                 "First book of the Song of Ice and Fire series");
-        this.bookCollection.put(lotr.getId(), lotr);
-        this.bookCollection.put(harryPotter.getId(), harryPotter);
-        this.bookCollection.put(gameOfThrones.getId(), gameOfThrones);
+        this.bookCollection.add(lotr);
+        this.bookCollection.add(harryPotter);
+        this.bookCollection.add(gameOfThrones);
     }
 
-    public Map<Integer, Book> getBookCollection() {
+    public List<Book> getBookCollection() {
         return this.bookCollection;
     }
 
     public void addBookToCollection(Book book) {
-        this.bookCollection.put(book.getId(), book);
+        int newId = this.bookCollection.get(-1).getId() + 1;
+        book.setId(newId);
+        this.bookCollection.add(book);
     }
-
 }
