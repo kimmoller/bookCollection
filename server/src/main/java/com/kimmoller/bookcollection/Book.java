@@ -34,6 +34,13 @@ public class Book {
         return this.title;
     }
 
+    /**
+     * used only for unit tests
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getAuthor() {
         return this.author;
     }
