@@ -31,7 +31,8 @@ public class BookCollection {
     }
 
     public void addBookToCollection(Book book) {
-        int newId = this.bookCollection.get(this.bookCollection.size() - 1).getId() + 1;
+        int newId = this.bookCollection.size() > 0 ? this.bookCollection.get(this.bookCollection.size() - 1).getId() + 1
+                : 0;
         book.setId(newId);
         this.bookCollection.add(book);
     }
@@ -53,6 +54,16 @@ public class BookCollection {
             int index = this.bookCollection.indexOf(bookToUpdate.get());
             this.bookCollection.set(index, book);
         }
+    }
+
+    /**
+     * used only for unit tests
+     */
+    public Optional<Book> getBookFromCollection(Book book) {
+        Optional<Book> optionalBook = this.bookCollection.stream().filter(element -> {
+            return book.getId() == (element.getId());
+        }).findFirst();
+        return optionalBook;
     }
 
 }
