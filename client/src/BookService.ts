@@ -7,13 +7,24 @@ export interface Book {
     description: string;
 }
 
-export function fetchBookCollection(): Promise<Book[]> {
-    return fetch("http://localhost:8080/getAll")
-        .then(response => response.json())
-        .then(data => {
-            return data;
+export function useBookCollection() {
+    const [books, setBooks] = useState<Book[]>([]);
+
+    useEffect(() => {
+        fetchBookCollection().then(books => {
+            setBooks(books);
         })
-        .catch(() => {
-            return "Book list missing...";
-        });
+    });
+
+    return books;
+}
+
+export async function fetchBookCollection(): Promise<Book[]> {
+    let response = await fetch("http://localhost:8080/getAll");
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    let bookJson = await response.json();
+    return bookJson;
 }
