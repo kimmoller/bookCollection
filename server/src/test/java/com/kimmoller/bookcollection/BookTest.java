@@ -14,14 +14,4 @@ public class BookTest {
         assertEquals("author", book.getAuthor());
         assertEquals("description", book.getDescription());
     }
-
-    @Test
-    void createBookWithId() {
-        Book book = new Book(0, "title", "author", "description");
-        assertEquals(0, book.getId());
-        assertEquals("title", book.getTitle());
-        assertEquals("author", book.getAuthor());
-        assertEquals("description", book.getDescription());
-    }
-
 }

@@ -40,7 +40,7 @@ public class RestService {
         Book book;
         try {
             book = mapper.readValue(payload, Book.class);
-            bookCollection.addBookToCollection(book);
+            bookCollection.saveOrCreateBook(book);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class RestService {
         Book book;
         try {
             book = mapper.readValue(payload, Book.class);
-            bookCollection.updateBook(book);
+            bookCollection.saveOrCreateBook(book);
         } catch (IOException e) {
             e.printStackTrace();
         }

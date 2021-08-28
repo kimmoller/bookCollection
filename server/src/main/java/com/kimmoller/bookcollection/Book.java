@@ -1,7 +1,21 @@
 package com.kimmoller.bookcollection;
 
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    private UUID id;
+
     private String title;
     private String author;
     private String description;
@@ -15,19 +29,8 @@ public class Book {
         this.description = description;
     }
 
-    public Book(int id, String title, String author, String description) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-    }
-
-    public int getId() {
+    public UUID getId() {
         return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
